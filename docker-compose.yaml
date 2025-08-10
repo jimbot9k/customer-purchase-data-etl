@@ -1,0 +1,113 @@
+networks:
+  etl_net:
+
+volumes:
+  pg_data:
+  clover_db_data:
+
+services:
+  cloverdb:
+    image: postgres:17-alpine
+    container_name: cloverdb
+    environment:
+      POSTGRES_DB:        clover
+      POSTGRES_USER:      admin
+      POSTGRES_PASSWORD:  password
+    volumes:
+      - clover_db_data:/var/lib/postgresql/data
+    networks: [etl_net]
+
+  cloverdx:
+    image: cloverdx/cloverdx-server:latest
+    container_name: cloverdx
+    mem_limit: 12g
+    environment:
+      clover.jdbc.driverClassName: org.postgresql.Driver
+      clover.jdbc.url:        jdbc:postgresql://cloverdb:5432/clover?charSet=UTF-8
+      clover.jdbc.username:   admin
+      clover.jdbc.password:   password
+      clover.jdbc.dialect:    org.hibernate.dialect.PostgreSQLDialect
+      clover.sandboxes.home:  /var/clover/sandboxes
+      clover.sandboxes.autoimport: true
+      JAVA_TOOL_OPTIONS:     "-Xms10g -Xmx10g"
+    volumes:
+      - ./etl/sandboxes:/var/clover/sandboxes
+      - ./etl/license:/var/clover/conf/license.dat
+      - ./etl/files:/data:rw
+    depends_on: [cloverdb]
+    networks: [etl_net]
+    healthcheck:
+      test: ["CMD-SHELL", "curl -X 'GET' -u clover:clover -H 'accept: application/json' -H 'X-Requested-By: Docker-Compose Auto Configuration' http://localhost:8080/clover/api/rest/v1/server"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+
+  cloverdx-config-importer:
+    image: curlimages/curl:8.15.0
+    depends_on:
+      cloverdx:
+        condition: service_healthy
+    volumes:
+      - ./etl/clover-server-config.xml:/config/server-config.xml:ro
+    command: |
+      curl -X POST \
+        -u clover:clover \
+        -H 'Content-Type: text/xml' \
+        -H 'accept: application/json' \
+        -H 'X-Requested-By: Docker-Compose Auto Configuration' \
+        --data-binary "@/config/server-config.xml" \
+        'http://cloverdx:8080/clover/api/rest/v1/server/configuration/import?dryRun=false&newOnly=false&override=true&include=all'
+    networks: [etl_net]
+    restart: "no"
+
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB:        warehouse
+      POSTGRES_USER:      admin
+      POSTGRES_PASSWORD:  password
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d warehouse"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    networks: [etl_net]
+
+  purchase-data-rest:
+    build:
+      context: ./presentation/purchase-data-rest
+      dockerfile: Dockerfile
+    environment:
+      SPRING_DATASOURCE_URL:      jdbc:postgresql://postgres:5432/warehouse
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_SERVER_PORT:         80
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks: [etl_net]
+
+  web-client:
+    build:
+      context: ./presentation/web-client
+      dockerfile: Dockerfile
+    depends_on: [purchase-data-rest]
+    networks: [etl_net]
+
+  reverse-proxy:
+    image: nginx:latest
+    container_name: reverse-proxy
+    ports:
+      - "8080:8080"
+    environment:
+      PORT: 8080
+    volumes:
+      - ./presentation/nginx.conf:/etc/nginx/conf.d/conf.template
+    depends_on: [web-client]
+    networks: [etl_net]
+    command: >
+      /bin/sh -c "envsubst '$${PORT}' < /etc/nginx/conf.d/conf.template > /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"

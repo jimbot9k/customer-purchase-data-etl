@@ -1,0 +1,10 @@
+server:
+  port: ${SPRING_SERVER_PORT:8000}
+spring:
+  flyway:
+    enabled: true
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/warehouse}
+    username: ${SPRING_DATASOURCE_USERNAME:admin}
+    password: ${SPRING_DATASOURCE_PASSWORD:password}
+    driver-class-name: org.postgresql.Driver

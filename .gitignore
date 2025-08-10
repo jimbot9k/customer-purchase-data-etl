@@ -1,0 +1,5 @@
+etl/license
+etl/files/raw/*
+etl/files/processed/*
+etl/files/aggregate/*
+etl/license

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Graph author="Jimmy" created="Wed Aug 06 23:11:12 AEST 2025" guiVersion="7.1.0.8" id="1754486522064" licenseCode="CLP1DJAMES67662781EX" name="ProcessCsv" showComponentDetails="true">
+<Global>
+<GraphParameters>
+<GraphParameterFile fileURL="workspace.prm"/>
+</GraphParameters>
+<Dictionary/>
+</Global>
+<Phase number="0">
+<Node fileURL="${EVENT_FILE_PATH}" guiName="FlatFileReader" guiX="70" guiY="275" id="FLAT_FILE_READER" type="FLAT_FILE_READER"/>
+<Node guiName="FlatFileWriter" guiX="320" guiY="275" id="FLAT_FILE_WRITER" type="FLAT_FILE_WRITER"/>
+<Edge fromNode="FLAT_FILE_READER:0" guiBendpoints="" guiRouter="Manhattan" id="Edge0" inPort="Port 0 (in)" outPort="Port 0 (output)" toNode="FLAT_FILE_WRITER:0"/>
+</Phase>
+</Graph>

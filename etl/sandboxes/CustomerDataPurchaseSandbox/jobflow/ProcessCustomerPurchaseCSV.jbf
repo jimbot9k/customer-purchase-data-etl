@@ -1,0 +1,1095 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Graph author="Jimmy" created="Wed Aug 06 23:11:12 AEST 2025" guiVersion="7.1.0.8" id="1754487443937" licenseCode="CLP1DJAMES67662781EX" name="new-jobflow" nature="jobflow" showComponentDetails="true">
+<Global>
+<Metadata id="Metadata4">
+<Record fieldDelimiter="|" name="Batch" previewAttachmentCharset="UTF-8" recordDelimiter="\n" type="delimited">
+<Field name="batch_id" type="string"/>
+<Field name="file_name" type="string"/>
+<Field name="file_hash" type="string"/>
+<Field name="file_location" type="string"/>
+<Field name="processed_at" trim="true" type="date"/>
+<Field name="sourceUrl" type="string"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata11">
+<Record fieldDelimiter="|" name="BatchId" previewAttachmentCharset="UTF-8" recordDelimiter="\r\n" type="delimited">
+<Field name="batch_id" type="string"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata9" previewAttachmentCharset="UTF-8">
+<Record fieldDelimiter="," label="Purchase" name="Customer" previewAttachmentCharset="UTF-8" recordDelimiter="\r\n" type="delimited">
+<Field name="customer_id" trim="true" type="long"/>
+<Field name="first_name" type="string"/>
+<Field name="last_name" type="string"/>
+<Field name="email" type="string"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata7">
+<Record fieldDelimiter="|" name="FailedRow" recordDelimiter="\r\n" type="delimited">
+<Field name="batch_id" type="string"/>
+<Field name="row" trim="true" type="long"/>
+<Field name="raw_data" type="string"/>
+<Field name="reason" type="string"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata8">
+<Record fieldDelimiter="|" name="FailedRowValidation" previewAttachmentCharset="UTF-8" recordDelimiter="\n" type="delimited">
+<Field name="validationMessage" type="string"/>
+<Field name="customer_id" trim="true" type="string"/>
+<Field name="first_name" type="string"/>
+<Field name="last_name" type="string"/>
+<Field name="email" type="string"/>
+<Field name="purchase_id" trim="true" type="string"/>
+<Field name="purchase_date" trim="true" type="string"/>
+<Field length="12" name="amount" scale="2" trim="true" type="string"/>
+<Field default="USD" name="currency" type="string"/>
+<Field auto_filling="source_row_count" delimiter="," name="row" trim="true" type="long"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata2">
+<Record eofAsDelimiter="true" name="File" previewAttachmentCharset="UTF-8" type="delimited">
+<Field name="content" type="string"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata3">
+<Record fieldDelimiter="|" name="FileHash" recordDelimiter="\r\n" type="delimited">
+<Field name="hash" type="string"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata1">
+<Record fieldDelimiter="|" name="GeneratedBatchData" previewAttachmentCharset="UTF-8" recordDelimiter="\r\n" type="delimited">
+<Field name="uuid" type="string"/>
+<Field name="date" type="date"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata5">
+<Record fieldDelimiter="|" name="purchase" recordDelimiter="\n" type="delimited">
+<Field name="purchase_id" trim="true" type="long"/>
+<Field name="customer_id" trim="true" type="long"/>
+<Field name="purchase_date" trim="true" type="date"/>
+<Field length="12" name="amount" scale="2" trim="true" type="decimal"/>
+<Field delimiter="," name="first_name" type="string"/>
+<Field name="last_name" type="string"/>
+<Field name="email" type="string"/>
+<Field default="USD" name="currency" type="string"/>
+<Field name="batch_id" type="string"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata0">
+<Record label="Purchase" name="Purchase" previewAttachment="${PROJECT}/etl1.csv" previewAttachmentCharset="UTF-8" recordDelimiter="\r\n" type="delimited">
+<Field delimiter="," name="customer_id" nullable="true" type="long"/>
+<Field delimiter="," name="first_name" nullable="true" type="string"/>
+<Field delimiter="," name="last_name" nullable="true" type="string"/>
+<Field delimiter="," name="email" nullable="true" type="string"/>
+<Field delimiter="," name="purchase_id" nullable="true" type="long"/>
+<Field delimiter="," name="purchase_date" nullable="true" type="date"/>
+<Field delimiter="," name="amount" nullable="true" type="decimal"/>
+<Field name="currency" type="string"/>
+<Field auto_filling="source_row_incl_err_count" delimiter="," name="row" type="long"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata6" previewAttachmentCharset="UTF-8">
+<Record fieldDelimiter="," label="Purchase" name="PurchaseWithBatchID" previewAttachmentCharset="UTF-8" recordDelimiter="\r\n" type="delimited">
+<Field name="customer_id" trim="true" type="long"/>
+<Field name="first_name" type="string"/>
+<Field name="last_name" type="string"/>
+<Field name="email" type="string"/>
+<Field name="purchase_id" trim="true" type="long"/>
+<Field name="purchase_date" trim="true" type="date"/>
+<Field length="12" name="amount" scale="2" trim="true" type="decimal"/>
+<Field default="USD" name="currency" type="string"/>
+<Field name="batch_id" type="string"/>
+<Field auto_filling="source_row_count" delimiter="," name="row" trim="true" type="long"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata10" previewAttachmentCharset="UTF-8">
+<Record fieldDelimiter="," label="Purchase" name="PurchaseWithoutCustomer" previewAttachmentCharset="UTF-8" recordDelimiter="\r\n" type="delimited">
+<Field name="customer_id" trim="true" type="long"/>
+<Field name="purchase_id" trim="true" type="long"/>
+<Field name="purchase_date" trim="true" type="date"/>
+<Field length="12" name="amount" scale="2" trim="true" type="decimal"/>
+<Field default="USD" name="currency" type="string"/>
+<Field name="batch_id" type="string"/>
+<Field auto_filling="source_row_count" delimiter="," name="row" trim="true" type="long"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata12">
+<Record label="Purchase" name="RawPurchase" previewAttachment="${PROJECT}/etl1.csv" previewAttachmentCharset="UTF-8" recordDelimiter="\r\n" type="delimited">
+<Field delimiter="," name="customer_id" nullable="true" type="string"/>
+<Field delimiter="," name="first_name" nullable="true" type="string"/>
+<Field delimiter="," name="last_name" nullable="true" type="string"/>
+<Field delimiter="," name="email" nullable="true" type="string"/>
+<Field delimiter="," name="purchase_id" nullable="true" type="string"/>
+<Field delimiter="," name="purchase_date" nullable="true" type="string"/>
+<Field delimiter="," name="amount" nullable="true" type="string"/>
+<Field name="currency" type="string"/>
+<Field auto_filling="global_row_incl_err_count" delimiter="," name="row" type="long"/>
+</Record>
+</Metadata>
+<Connection database="POSTGRE" dbURL="jdbc:postgresql://postgres:5432/warehouse" id="JDBC0" jdbcSpecific="POSTGRE" name="Warehouse" password="password" type="JDBC" user="admin"/>
+<GraphParameters>
+<GraphParameterFile fileURL="workspace.prm"/>
+</GraphParameters>
+<Dictionary>
+<Entry dictval.value="placeholder" input="true" name="aggregateFileLocation" output="true" type="string"/>
+<Entry dictval.value="placeholder" input="true" name="batchId" output="true" type="string"/>
+</Dictionary>
+</Global>
+<Phase number="0">
+<Node guiName="Calculate CSV Hash" guiX="-5" guiY="425" id="CALCULATE_CSV_HASH" type="GENERIC_TRANSFORMER">
+<attr name="genericTransform"><![CDATA[import java.io.InputStream;
+import java.net.URL; 
+import java.io.IOException;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.log4j.Level;
+import org.jetel.component.AbstractGenericTransform;
+import org.jetel.data.DataRecord;
+import org.jetel.data.DataRecordFactory;
+import org.jetel.data.DataField;
+import org.jetel.exception.ComponentNotReadyException;
+import org.jetel.exception.ConfigurationStatus;
+import org.jetel.metadata.DataRecordMetadata;
+
+/**
+ * Streams each file on disk and emits its SHA-1 hash (40-char hex).
+ *
+ * in:  path (string)  – absolute or project-relative filename
+ * out: path (string), sha1 (string)
+ *
+ * No file larger than a few kB is ever loaded fully into memory;
+ * DigestUtils.sha1Hex(InputStream) reads in 4 kB chunks internally.
+ */
+public class FileSha1Transformer extends AbstractGenericTransform {
+
+    @Override
+    public void execute() {
+        DataRecord inRec = inRecords[0];
+        while ((inRec = readRecordFromPort(0)) != null) {
+
+			String metadataId = getGraph().getDataRecordMetadataByName("FileHash");
+			DataRecordMetadata metadata = getGraph().getDataRecordMetadata(metadataId);
+			DataRecord outRec = DataRecordFactory.newRecord(metadata);	
+			
+            String path = inRec.getField(0).getValue().toString();
+            String sha1;
+
+            try (InputStream in = getInputStream(path)) {
+    			sha1 = DigestUtils.sha1Hex(in);
+                getLogger().log(Level.INFO, "SHA1: " + sha1);
+            } catch (IOException e) {
+                getLogger().log(Level.ERROR,
+                                "Unable to hash file '" + path + "': " + e.getMessage(), e);
+                continue;
+            }
+
+            DataField hashField = outRec.getField(0);
+            hashField.setValue(sha1);
+            writeRecordToPort(0, outRec);
+        }
+    }
+}
+]]></attr>
+</Node>
+<Node guiName="COMBINE" guiX="345" guiY="450" id="COMBINE" type="COMBINE">
+<attr name="transform"><![CDATA[//#CTL2
+
+// Transforms input record into output record.
+function integer transform() {
+	$out.1.batch_id = $in.1.uuid;
+	$out.1.file_name = $in.0.name;
+	$out.1.file_hash = $in.2.hash;
+	$out.1.file_location = '/data/processed/' + $in.1.uuid + '.csv';
+	$out.1.processed_at = $in.1.date;
+	$out.1.sourceUrl = $in.0.URL;
+	$out.0.batch_id = $in.1.uuid;
+
+	return ALL;
+}
+
+// Called during component initialization.
+// function boolean init() {}
+
+// Called during each graph run before the transform is executed. May be used to allocate and initialize resources
+// required by the transform. All resources allocated within this method should be released
+// by the postExecute() method.
+// function void preExecute() {}
+
+// Called only if transform() throws an exception.
+// function integer transformOnError(string errorMessage, string stackTrace) {}
+
+// Called during each graph run after the entire transform was executed. Should be used to free any resources
+// allocated within the preExecute() method.
+// function void postExecute() {}
+
+// Called to return a user-defined error message when an error occurs.
+// function string getMessage() {}
+]]></attr>
+</Node>
+<Node guiName="Generate BatchID and Date of processing" guiX="-5" guiY="275" id="GENERATE_BATCH_ID_AND_DATE_OF_PROCESSING" type="DATA_GENERATOR">
+<attr name="generate"><![CDATA[//#CTL2
+
+// Generates output record.
+function integer generate() {
+	$out.0.uuid = randomUUID();
+	$out.0.date = today();
+
+	return ALL;
+}
+
+// Called during component initialization.
+// function boolean init() {}
+
+// Called during each graph run before the transform is executed. May be used to allocate and initialize resources
+// required by the generate. All resources allocated within this method should be released
+// by the postExecute() method.
+// function void preExecute() {}
+
+// Called only if generate() throws an exception.
+// function integer generateOnError(string errorMessage, string stackTrace) {
+// }
+
+// Called during each graph run after the entire transform was executed. Should be used to free any resources
+// allocated within the preExecute() method.
+// function void postExecute() {}
+
+// Called to return a user-defined error message when an error occurs.
+// function string getMessage() {}
+]]></attr>
+</Node>
+<Node fileURL="${EVENT_FILE_URLS}" guiName="List CSV Input" guiX="-5" guiY="100" id="LIST_CSV_INPUT" type="LIST_FILES">
+<attr name="inputMapping"><![CDATA[//#CTL2
+
+// Transforms input record into output record.
+function integer transform() {
+	return ALL;
+}
+
+// Called during component initialization.
+// function boolean init() {}
+
+// Called during each graph run before the transform is executed. May be used to allocate and initialize resources
+// required by the transform. All resources allocated within this method should be released
+// by the postExecute() method.
+// function void preExecute() {}
+
+// Called only if transform() throws an exception.
+// function integer transformOnError(string errorMessage, string stackTrace) {}
+
+// Called during each graph run after the entire transform was executed. Should be used to free any resources
+// allocated within the preExecute() method.
+// function void postExecute() {}
+
+// Called to return a user-defined error message when an error occurs.
+// function string getMessage() {}
+]]></attr>
+</Node>
+<Node guiName="SimpleCopy" guiX="170" guiY="100" id="SIMPLE_COPY" type="SIMPLE_COPY"/>
+<Node guiName="Write Batch Metadata to Dictionary" guiX="420" guiY="300" id="WRITE_BATCH_METADATA_TO_DICTIONARY" type="GENERIC_WRITER">
+<attr name="genericTransform"><![CDATA[import org.apache.log4j.Level;
+import org.jetel.component.AbstractGenericTransform;
+import org.jetel.data.DataRecord;
+import org.jetel.exception.ComponentNotReadyException;
+import org.jetel.exception.ConfigurationStatus;
+import org.jetel.exception.ConfigurationStatus.Priority;
+import org.jetel.exception.ConfigurationStatus.Severity;
+import org.jetel.exception.JetelRuntimeException;
+import org.jetel.graph.dictionary.Dictionary;
+import org.jetel.metadata.DataRecordMetadata;
+
+public class BatchIdToDictionaryWriter extends AbstractGenericTransform {
+
+	@Override
+	public void execute() throws ComponentNotReadyException {
+		DataRecord inRec = inRecords[0];
+        while ((inRec = readRecordFromPort(0)) != null) {
+        	Dictionary dictionary = getGraph().getDictionary();
+			dictionary.setValue("batchId", inRec.getField(0).getValue());
+			dictionary.setValue("aggregateFileLocation", "/data/aggregate/" + inRec.getField(0).getValue() + ".csv");
+        }
+	}
+	
+	@Override
+	public void init() {
+		super.init();
+	}
+
+	@Override
+	public void preExecute() throws ComponentNotReadyException {
+		super.preExecute();
+	}
+
+	@Override
+	public void postExecute() throws ComponentNotReadyException {
+		super.postExecute();
+	}
+}
+]]></attr>
+<attr name="metadataPropagationAlgorithm"><![CDATA[import java.io.File;
+
+import org.jetel.component.GenericMetadataProvider;
+import org.jetel.graph.TransformationGraph;
+import org.jetel.metadata.DataFieldMetadata;
+import org.jetel.metadata.DataFieldType;
+import org.jetel.metadata.DataRecordMetadata;
+import org.jetel.metadata.DataRecordParsingType;
+import org.jetel.util.property.RefResFlag;
+
+/**
+ * This is an example of custom metadata propagation for a component.
+ * 
+ * It shows you how to create metadata from scratch and propagate them to input port.
+ */
+public class MyCustomPropagation extends GenericMetadataProvider {
+
+	/**
+	 * You can implement custom metadata propagation in this method.
+	 * 
+	 * Metadata to propagate to outside can be set by methods {@link #setInputMetadata(int, DataRecordMetadata)} and {@link #setOutputMetadata(int, DataRecordMetadata)}.
+	 * 
+	 * Metadata from outside are available through methods {@link #getMetadataFromInputPort(int)} and {@link #getMetadataFromOutputPort(int)}.
+	 */
+	@Override
+	public void propagateMetadata() {
+		/** This code is an example. Replace it with your custom code. */
+
+		/** This is how you can read component properties. */
+		//String customValue = getComponent().getAttributes().getProperty("myCustomPropertyName");
+
+		/** Accessing graph. */
+		//TransformationGraph graph = getGraph();
+
+		/** Accessing graph's parameters. */
+		//String parameterValue = graph.getGraphParameters().getGraphParameter("MY_PARAMETER").getValueResolved(RefResFlag.REGULAR);
+
+		/** Working with files. */
+		//File file = getFile("data-in/configuration.txt");
+
+		/** Creating our own metadata. */
+		int numberOfFields = 5;
+		DataRecordMetadata customMetadata = new DataRecordMetadata("MyMetadataName", DataRecordParsingType.DELIMITED);
+		customMetadata.setRecordDelimiter("\n");
+		customMetadata.setFieldDelimiter("|");
+		// Add fields to the metadata.
+		for (int i = 0; i < numberOfFields; i++) {
+			DataFieldMetadata newField = new DataFieldMetadata("Field" + i, DataFieldType.STRING, null);
+			customMetadata.addField(newField);
+		}
+		setInputMetadata(0, customMetadata); // Propagate metadata to input port.
+	}
+}
+]]></attr>
+</Node>
+<Edge fromNode="CALCULATE_CSV_HASH:0" guiBendpoints="" guiRouter="Manhattan" id="Edge34" inPort="Port 2 (in)" metadata="Metadata3" outPort="Port 0 (out)" toNode="COMBINE:2"/>
+<Edge fromNode="COMBINE:0" guiBendpoints="" guiRouter="Manhattan" id="Edge25" inPort="Port 0 (in)" metadata="Metadata4" outPort="Port 0 (out)" toNode="WRITE_BATCH_METADATA_TO_DICTIONARY:0"/>
+<Edge fromNode="COMBINE:1" guiBendpoints="" guiRouter="Manhattan" id="Edge2" inPort="Port 0 (in)" metadata="Metadata4" outPort="Port 1 (out)" toNode="SIMPLE_COPY1:0"/>
+<Edge fromNode="GENERATE_BATCH_ID_AND_DATE_OF_PROCESSING:0" guiBendpoints="" guiRouter="Manhattan" id="Edge9" inPort="Port 1 (in)" metadata="Metadata1" outPort="Port 0 (out)" toNode="COMBINE:1"/>
+<Edge fromNode="LIST_CSV_INPUT:0" guiBendpoints="" guiRouter="Manhattan" id="Edge5" inPort="Port 0 (in)" outPort="Port 0 (out)" toNode="SIMPLE_COPY:0"/>
+<Edge fromNode="SIMPLE_COPY:0" guiBendpoints="" guiRouter="Manhattan" id="Edge8" inPort="Port 0 (in)" outPort="Port 0 (out)" toNode="COMBINE:0"/>
+<Edge fromNode="SIMPLE_COPY:1" guiBendpoints="" guiRouter="Manhattan" id="Edge17" inPort="Port 0 (in)" outPort="Port 1 (out)" toNode="CALCULATE_CSV_HASH:0"/>
+</Phase>
+<Phase number="1">
+<Node guiName="Gather Invalid Rows for RejectedRow Database Write" guiX="1170" guiY="200" id="GATHER_INVALID_ROWS_FOR_REJECTED_ROW_DATABASE_WRITE" type="SIMPLE_GATHER"/>
+<Node guiName="Gather Valid Rows for DB Write" guiX="1170" guiY="-150" id="GATHER_VALID_ROWS_FOR_DB_WRITE" type="SIMPLE_GATHER"/>
+<Node guiName="Map Batch Duplicate to DB RejectedRow" guiX="1020" guiY="750" id="MAP_BATCH_DUPLICATE_TO_DB_REJECTED_ROW" type="REFORMAT">
+<attr name="transform"><![CDATA[//#CTL2
+
+// Transforms input record into output record.
+function integer transform() {
+	$out.0.batch_id = dictionary.batchId;
+	$out.0.row = $in.0.row;
+	$out.0.reason = 'duplicate_value_same_batch';
+	$out.0.raw_data = $in.0.customer_id 
+	+ ',' + $in.0.first_name 
+	+ ',' + $in.0.last_name 
+	+ ',' + $in.0.email 
+	+ ',' + $in.0.purchase_id 
+	+ ',' + $in.0.purchase_date 
+	+ ',' + $in.0.amount 
+	+ ',' + $in.0.currency;
+
+	return ALL;
+}
+
+// Called during component initialization.
+// function boolean init() {}
+
+// Called during each graph run before the transform is executed. May be used to allocate and initialize resources
+// required by the transform. All resources allocated within this method should be released
+// by the postExecute() method.
+// function void preExecute() {}
+
+// Called only if transform() throws an exception.
+// function integer transformOnError(string errorMessage, string stackTrace) {}
+
+// Called during each graph run after the entire transform was executed. Should be used to free any resources
+// allocated within the preExecute() method.
+// function void postExecute() {}
+
+// Called to return a user-defined error message when an error occurs.
+// function string getMessage() {}
+]]></attr>
+</Node>
+<Node guiName="Map CSV Parse Error to DB RejectedRow" guiX="1020" guiY="625" id="MAP_CSV_PARSE_ERROR_TO_DB_REJECTED_ROW" type="REFORMAT">
+<attr name="transform"><![CDATA[//#CTL2
+
+// Transforms input record into output record.
+function integer transform() {
+	$out.0.batch_id = dictionary.batchId;
+	$out.0.row = $in.0.recordNo;
+	$out.0.reason = $in.0.errorMessage;
+	$out.0.raw_data = $in.0.originalData;
+
+	return ALL;
+}
+
+// Called during component initialization.
+// function boolean init() {}
+
+// Called during each graph run before the transform is executed. May be used to allocate and initialize resources
+// required by the transform. All resources allocated within this method should be released
+// by the postExecute() method.
+// function void preExecute() {}
+
+// Called only if transform() throws an exception.
+// function integer transformOnError(string errorMessage, string stackTrace) {}
+
+// Called during each graph run after the entire transform was executed. Should be used to free any resources
+// allocated within the preExecute() method.
+// function void postExecute() {}
+
+// Called to return a user-defined error message when an error occurs.
+// function string getMessage() {}
+]]></attr>
+</Node>
+<Node guiName="Map Invalid Row to DB RejectedRow" guiX="1020" guiY="500" id="MAP_INVALID_ROW_TO_DB_REJECTED_ROW" type="REFORMAT">
+<attr name="transform"><![CDATA[//#CTL2
+
+// Transforms input record into output record.
+function integer transform() {
+	$out.0.batch_id = dictionary.batchId;
+	;
+	$out.0.row = $in.0.row;
+	$out.0.reason = $in.0.validationMessage;
+	$out.0.raw_data = $in.0.customer_id 
+	+ ',' + $in.0.first_name 
+	+ ',' + $in.0.last_name 
+	+ ',' + $in.0.email 
+	+ ',' + $in.0.purchase_id 
+	+ ',' + $in.0.purchase_date 
+	+ ',' + $in.0.amount 
+	+ ',' + $in.0.currency;
+
+
+	return ALL;
+}
+
+// Called during component initialization.
+// function boolean init() {}
+
+// Called during each graph run before the transform is executed. May be used to allocate and initialize resources
+// required by the transform. All resources allocated within this method should be released
+// by the postExecute() method.
+// function void preExecute() {}
+
+// Called only if transform() throws an exception.
+// function integer transformOnError(string errorMessage, string stackTrace) {}
+
+// Called during each graph run after the entire transform was executed. Should be used to free any resources
+// allocated within the preExecute() method.
+// function void postExecute() {}
+
+// Called to return a user-defined error message when an error occurs.
+// function string getMessage() {}
+]]></attr>
+</Node>
+<Node dataPolicy="controlled" fileURL="${EVENT_FILE_URLS}" guiName="Read CSV" guiX="470" guiY="75" id="READ_CSV" parser="org.jetel.data.parser.DataParser" type="FLAT_FILE_READER"/>
+<Node dedupKey="purchase_id(a)" guiName="Remove Batch Duplicates" guiX="495" guiY="-200" id="REMOVE_BATCH_DUPLICATES" keep="first" sorted="false" type="DEDUP"/>
+<Node guiName="Round Robin Partition" guiX="720" guiY="-200" id="ROUND_ROBIN_PARTITION" type="PARTITION">
+<attr name="partitionSource"><![CDATA[//#CTL2
+// This transformation partitions input records into multiple output ports.
+
+// Returns the number of the output port where the input record will be sent.
+integer roundRobin = 0;
+integer partitions = 4;
+function integer getOutputPort() {
+	integer result = 0;
+	result = roundRobin;
+	roundRobin = (roundRobin + 1) % partitions;
+	return result;
+}
+
+// Called during component initialization, partitionCount is the number of output ports.
+// function void init(integer partitionCount) {}
+
+// Called during each graph run before the transform is executed. May be used to allocate and initialize resources.
+// All resources allocated within this method should be released by the postExecute() method.
+// function void preExecute() {}
+
+// Called only if getOutputPort() throws an exception.
+// function integer getOutputPortOnError(string errorMessage, string stackTrace) {
+// }
+
+// Called during each graph run after the entire transform was executed. Should be used to free any resources
+// allocated within the preExecute() method.
+// function void postExecute() {}
+
+// Called to return a user-defined error message when an error occurs.
+// function string getMessage() {}
+]]></attr>
+</Node>
+<Node guiName="SimpleCopy" guiX="345" guiY="650" id="SIMPLE_COPY1" type="SIMPLE_COPY"/>
+<Node guiName="SimpleGather" guiX="1320" guiY="575" id="SIMPLE_GATHER" type="SIMPLE_GATHER"/>
+<Node guiName="Validator" guiX="920" guiY="-325" id="VALIDATOR" type="VALIDATOR">
+<attr name="rules"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<group conjunction="AND" description="" enabled="true" errorMessage="" errorMessageProducer="RULES" lazyEvaluation="true" name="All rules" statusCode="">
+    <children>
+        <expression customRejectMessage="invalid_customer_id" description="" enabled="true" inputField="" name="Customer ID greater or equal to zero" outputField="">
+            <expression><![CDATA[//#CTL2
+$in.0.customer_id != null && isNumber($in.0.customer_id) && str2long($in.0.customer_id) >= 0]]]]><![CDATA[></expression>
+        </expression>
+        <expression customRejectMessage="invalid_purchase_id" description="" enabled="true" inputField="" name="Purchase ID greater or equal to zero" outputField="">
+            <expression><![CDATA[//#CTL2
+$in.0.purchase_id != null && isNumber($in.0.purchase_id) && str2long($in.0.purchase_id) >= 0]]]]><![CDATA[></expression>
+        </expression>
+        <email acceptEmpty="false" allowGroupAddresses="false" allowNoTLD="false" customRejectMessage="invalid_customer_email" description="" enabled="true" inputField="email" name="Email address valid" outputField="email" plainAddress="false" trimInput="false">
+            <languageSetting dateFormat="" locale="" numberFormat="" timezone=""/>
+        </email>
+        <comparison acceptEmpty="false" customRejectMessage="invalid_purchase_amount" description="" enabled="true" inputField="amount" name="Amount not negative" operator="GE" outputField="" useType="DECIMAL" value="0">
+            <languageSetting dateFormat="" locale="" numberFormat="" timezone=""/>
+        </comparison>
+        <expression customRejectMessage="invalid_purchase_currency" description="" enabled="true" inputField="" name="Currency is USD" outputField="">
+            <expression><![CDATA[//#CTL2
+upperCase($in.0.currency) == 'USD']]]]><![CDATA[></expression>
+        </expression>
+        <isDate acceptEmpty="false" customRejectMessage="invalid_purchase_date" description="" enabled="true" inputField="purchase_date" name="Is Date" outputField="purchase_date" trimInput="false">
+            <languageSetting dateFormat="" locale="" numberFormat="" timezone=""/>
+        </isDate>
+        <transform customRejectMessage="" description="" enabled="true" inputField="" name="Copy and convert values " outputField="">
+            <transform><![CDATA[//#CTL2
+
+// Transforms input record into output record.
+function integer transform() {
+	$out.0.customer_id = str2long($in.0.customer_id);
+	$out.0.purchase_id = str2long($in.0.purchase_id);
+	$out.0.amount = str2decimal($in.0.amount ) * 1.5;
+	$out.0.currency = "AUD";
+	$out.0.batch_id = dictionary.batchId;
+	$out.0.first_name = $in.0.first_name;
+	$out.0.last_name = $in.0.last_name;
+	$out.0.row = $in.0.row;
+	return ALL;
+}
+
+// Called during component initialization.
+// function boolean init() {}
+
+// Called during each graph run before the transform is executed. May be used to allocate and initialize resources
+// required by the transform. All resources allocated within this method should be released
+// by the postExecute() method.
+// function void preExecute() {}
+
+// Called only if transform() throws an exception.
+// function integer transformOnError(string errorMessage, string stackTrace) {}
+
+// Called during each graph run after the entire transform was executed. Should be used to free any resources
+// allocated within the preExecute() method.
+// function void postExecute() {}
+
+// Called to return a user-defined error message when an error occurs.
+// function string getMessage() {}
+]]]]><![CDATA[></transform>
+        </transform>
+    </children>
+    <languageSetting dateFormat="" locale="" numberFormat="" timezone=""/>
+    <imports/>
+</group>
+]]></attr>
+<attr name="errorMapping"><![CDATA[//#CTL2
+
+// Transforms input record into output record.
+function integer transform() {
+	$out.1.customer_id = $in.0.customer_id;
+	$out.1.first_name = $in.0.first_name;
+	$out.1.last_name = $in.0.last_name;
+	$out.1.email = $in.0.email;
+	$out.1.purchase_id = $in.0.purchase_id;
+	$out.1.purchase_date = $in.0.purchase_date;
+	$out.1.amount = $in.0.amount;
+	$out.1.currency = $in.0.currency;
+	$out.1.row = $in.0.row;
+	$out.1.validationMessage = $in.1.validationMessage;
+
+	return ALL;
+}
+
+// Called during component initialization.
+// function boolean init() {}
+
+// Called during each graph run before the transform is executed. May be used to allocate and initialize resources
+// required by the transform. All resources allocated within this method should be released
+// by the postExecute() method.
+// function void preExecute() {}
+
+// Called only if transform() throws an exception.
+// function integer transformOnError(string errorMessage, string stackTrace) {}
+
+// Called during each graph run after the entire transform was executed. Should be used to free any resources
+// allocated within the preExecute() method.
+// function void postExecute() {}
+
+// Called to return a user-defined error message when an error occurs.
+// function string getMessage() {}
+]]></attr>
+</Node>
+<Node guiName="Validator" guiX="920" guiY="50" id="VALIDATOR1" type="VALIDATOR">
+<attr name="rules"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<group conjunction="AND" description="" enabled="true" errorMessage="" errorMessageProducer="RULES" lazyEvaluation="true" name="All rules" statusCode="">
+    <children>
+        <expression customRejectMessage="invalid_customer_id" description="" enabled="true" inputField="" name="Customer ID greater or equal to zero" outputField="">
+            <expression><![CDATA[//#CTL2
+$in.0.customer_id != null && isNumber($in.0.customer_id) && str2long($in.0.customer_id) >= 0]]]]><![CDATA[></expression>
+        </expression>
+        <expression customRejectMessage="invalid_purchase_id" description="" enabled="true" inputField="" name="Purchase ID greater or equal to zero" outputField="">
+            <expression><![CDATA[//#CTL2
+$in.0.purchase_id != null && isNumber($in.0.purchase_id) && str2long($in.0.purchase_id) >= 0]]]]><![CDATA[></expression>
+        </expression>
+        <email acceptEmpty="false" allowGroupAddresses="false" allowNoTLD="false" customRejectMessage="invalid_customer_email" description="" enabled="true" inputField="email" name="Email address valid" outputField="email" plainAddress="false" trimInput="false">
+            <languageSetting dateFormat="" locale="" numberFormat="" timezone=""/>
+        </email>
+        <comparison acceptEmpty="false" customRejectMessage="invalid_purchase_amount" description="" enabled="true" inputField="amount" name="Amount not negative" operator="GE" outputField="" useType="DECIMAL" value="0">
+            <languageSetting dateFormat="" locale="" numberFormat="" timezone=""/>
+        </comparison>
+        <expression customRejectMessage="invalid_purchase_currency" description="" enabled="true" inputField="" name="Currency is USD" outputField="">
+            <expression><![CDATA[//#CTL2
+upperCase($in.0.currency) == 'USD']]]]><![CDATA[></expression>
+        </expression>
+        <isDate acceptEmpty="false" customRejectMessage="invalid_purchase_date" description="" enabled="true" inputField="purchase_date" name="Is Date" outputField="purchase_date" trimInput="false">
+            <languageSetting dateFormat="" locale="" numberFormat="" timezone=""/>
+        </isDate>
+        <transform customRejectMessage="" description="" enabled="true" inputField="" name="Copy and convert values " outputField="">
+            <transform><![CDATA[//#CTL2
+
+// Transforms input record into output record.
+function integer transform() {
+	$out.0.customer_id = str2long($in.0.customer_id);
+	$out.0.purchase_id = str2long($in.0.purchase_id);
+	$out.0.amount = str2decimal($in.0.amount ) * 1.5;
+	$out.0.currency = "AUD";
+	$out.0.batch_id = dictionary.batchId;
+	$out.0.first_name = $in.0.first_name;
+	$out.0.last_name = $in.0.last_name;
+	$out.0.row = $in.0.row;
+	return ALL;
+}
+
+// Called during component initialization.
+// function boolean init() {}
+
+// Called during each graph run before the transform is executed. May be used to allocate and initialize resources
+// required by the transform. All resources allocated within this method should be released
+// by the postExecute() method.
+// function void preExecute() {}
+
+// Called only if transform() throws an exception.
+// function integer transformOnError(string errorMessage, string stackTrace) {}
+
+// Called during each graph run after the entire transform was executed. Should be used to free any resources
+// allocated within the preExecute() method.
+// function void postExecute() {}
+
+// Called to return a user-defined error message when an error occurs.
+// function string getMessage() {}
+]]]]><![CDATA[></transform>
+        </transform>
+    </children>
+    <languageSetting dateFormat="" locale="" numberFormat="" timezone=""/>
+    <imports/>
+</group>
+]]></attr>
+<attr name="errorMapping"><![CDATA[//#CTL2
+
+// Transforms input record into output record.
+function integer transform() {
+	$out.1.customer_id = $in.0.customer_id;
+	$out.1.first_name = $in.0.first_name;
+	$out.1.last_name = $in.0.last_name;
+	$out.1.email = $in.0.email;
+	$out.1.purchase_id = $in.0.purchase_id;
+	$out.1.purchase_date = $in.0.purchase_date;
+	$out.1.amount = $in.0.amount;
+	$out.1.currency = $in.0.currency;
+	$out.1.row = $in.0.row;
+	$out.1.validationMessage = $in.1.validationMessage;
+
+	return ALL;
+}
+
+// Called during component initialization.
+// function boolean init() {}
+
+// Called during each graph run before the transform is executed. May be used to allocate and initialize resources
+// required by the transform. All resources allocated within this method should be released
+// by the postExecute() method.
+// function void preExecute() {}
+
+// Called only if transform() throws an exception.
+// function integer transformOnError(string errorMessage, string stackTrace) {}
+
+// Called during each graph run after the entire transform was executed. Should be used to free any resources
+// allocated within the preExecute() method.
+// function void postExecute() {}
+
+// Called to return a user-defined error message when an error occurs.
+// function string getMessage() {}
+]]></attr>
+</Node>
+<Node guiName="Validator" guiX="920" guiY="-75" id="VALIDATOR2" type="VALIDATOR">
+<attr name="rules"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<group conjunction="AND" description="" enabled="true" errorMessage="" errorMessageProducer="RULES" lazyEvaluation="true" name="All rules" statusCode="">
+    <children>
+        <expression customRejectMessage="invalid_customer_id" description="" enabled="true" inputField="" name="Customer ID greater or equal to zero" outputField="">
+            <expression><![CDATA[//#CTL2
+$in.0.customer_id != null && isNumber($in.0.customer_id) && str2long($in.0.customer_id) >= 0]]]]><![CDATA[></expression>
+        </expression>
+        <expression customRejectMessage="invalid_purchase_id" description="" enabled="true" inputField="" name="Purchase ID greater or equal to zero" outputField="">
+            <expression><![CDATA[//#CTL2
+$in.0.purchase_id != null && isNumber($in.0.purchase_id) && str2long($in.0.purchase_id) >= 0]]]]><![CDATA[></expression>
+        </expression>
+        <email acceptEmpty="false" allowGroupAddresses="false" allowNoTLD="false" customRejectMessage="invalid_customer_email" description="" enabled="true" inputField="email" name="Email address valid" outputField="email" plainAddress="false" trimInput="false">
+            <languageSetting dateFormat="" locale="" numberFormat="" timezone=""/>
+        </email>
+        <comparison acceptEmpty="false" customRejectMessage="invalid_purchase_amount" description="" enabled="true" inputField="amount" name="Amount not negative" operator="GE" outputField="" useType="DECIMAL" value="0">
+            <languageSetting dateFormat="" locale="" numberFormat="" timezone=""/>
+        </comparison>
+        <expression customRejectMessage="invalid_purchase_currency" description="" enabled="true" inputField="" name="Currency is USD" outputField="">
+            <expression><![CDATA[//#CTL2
+upperCase($in.0.currency) == 'USD']]]]><![CDATA[></expression>
+        </expression>
+        <isDate acceptEmpty="false" customRejectMessage="invalid_purchase_date" description="" enabled="true" inputField="purchase_date" name="Is Date" outputField="purchase_date" trimInput="false">
+            <languageSetting dateFormat="" locale="" numberFormat="" timezone=""/>
+        </isDate>
+        <transform customRejectMessage="" description="" enabled="true" inputField="" name="Copy and convert values " outputField="">
+            <transform><![CDATA[//#CTL2
+
+// Transforms input record into output record.
+function integer transform() {
+	$out.0.customer_id = str2long($in.0.customer_id);
+	$out.0.purchase_id = str2long($in.0.purchase_id);
+	$out.0.amount = str2decimal($in.0.amount ) * 1.5;
+	$out.0.currency = "AUD";
+	$out.0.batch_id = dictionary.batchId;
+	$out.0.first_name = $in.0.first_name;
+	$out.0.last_name = $in.0.last_name;
+	$out.0.row = $in.0.row;
+	return ALL;
+}
+
+// Called during component initialization.
+// function boolean init() {}
+
+// Called during each graph run before the transform is executed. May be used to allocate and initialize resources
+// required by the transform. All resources allocated within this method should be released
+// by the postExecute() method.
+// function void preExecute() {}
+
+// Called only if transform() throws an exception.
+// function integer transformOnError(string errorMessage, string stackTrace) {}
+
+// Called during each graph run after the entire transform was executed. Should be used to free any resources
+// allocated within the preExecute() method.
+// function void postExecute() {}
+
+// Called to return a user-defined error message when an error occurs.
+// function string getMessage() {}
+]]]]><![CDATA[></transform>
+        </transform>
+    </children>
+    <languageSetting dateFormat="" locale="" numberFormat="" timezone=""/>
+    <imports/>
+</group>
+]]></attr>
+<attr name="errorMapping"><![CDATA[//#CTL2
+
+// Transforms input record into output record.
+function integer transform() {
+	$out.1.customer_id = $in.0.customer_id;
+	$out.1.first_name = $in.0.first_name;
+	$out.1.last_name = $in.0.last_name;
+	$out.1.email = $in.0.email;
+	$out.1.purchase_id = $in.0.purchase_id;
+	$out.1.purchase_date = $in.0.purchase_date;
+	$out.1.amount = $in.0.amount;
+	$out.1.currency = $in.0.currency;
+	$out.1.row = $in.0.row;
+	$out.1.validationMessage = $in.1.validationMessage;
+
+	return ALL;
+}
+
+// Called during component initialization.
+// function boolean init() {}
+
+// Called during each graph run before the transform is executed. May be used to allocate and initialize resources
+// required by the transform. All resources allocated within this method should be released
+// by the postExecute() method.
+// function void preExecute() {}
+
+// Called only if transform() throws an exception.
+// function integer transformOnError(string errorMessage, string stackTrace) {}
+
+// Called during each graph run after the entire transform was executed. Should be used to free any resources
+// allocated within the preExecute() method.
+// function void postExecute() {}
+
+// Called to return a user-defined error message when an error occurs.
+// function string getMessage() {}
+]]></attr>
+</Node>
+<Node guiName="Validator" guiX="920" guiY="-200" id="VALIDATOR4" type="VALIDATOR">
+<attr name="rules"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<group conjunction="AND" description="" enabled="true" errorMessage="" errorMessageProducer="RULES" lazyEvaluation="true" name="All rules" statusCode="">
+    <children>
+        <expression customRejectMessage="invalid_customer_id" description="" enabled="true" inputField="" name="Customer ID greater or equal to zero" outputField="">
+            <expression><![CDATA[//#CTL2
+$in.0.customer_id != null && isNumber($in.0.customer_id) && str2long($in.0.customer_id) >= 0]]]]><![CDATA[></expression>
+        </expression>
+        <expression customRejectMessage="invalid_purchase_id" description="" enabled="true" inputField="" name="Purchase ID greater or equal to zero" outputField="">
+            <expression><![CDATA[//#CTL2
+$in.0.purchase_id != null && isNumber($in.0.purchase_id) && str2long($in.0.purchase_id) >= 0]]]]><![CDATA[></expression>
+        </expression>
+        <email acceptEmpty="false" allowGroupAddresses="false" allowNoTLD="false" customRejectMessage="invalid_customer_email" description="" enabled="true" inputField="email" name="Email address valid" outputField="email" plainAddress="false" trimInput="false">
+            <languageSetting dateFormat="" locale="" numberFormat="" timezone=""/>
+        </email>
+        <comparison acceptEmpty="false" customRejectMessage="invalid_purchase_amount" description="" enabled="true" inputField="amount" name="Amount not negative" operator="GE" outputField="" useType="DECIMAL" value="0">
+            <languageSetting dateFormat="" locale="" numberFormat="" timezone=""/>
+        </comparison>
+        <expression customRejectMessage="invalid_purchase_currency" description="" enabled="true" inputField="" name="Currency is USD" outputField="">
+            <expression><![CDATA[//#CTL2
+upperCase($in.0.currency) == 'USD']]]]><![CDATA[></expression>
+        </expression>
+        <isDate acceptEmpty="false" customRejectMessage="invalid_purchase_date" description="" enabled="true" inputField="purchase_date" name="Is Date" outputField="purchase_date" trimInput="false">
+            <languageSetting dateFormat="" locale="" numberFormat="" timezone=""/>
+        </isDate>
+        <transform customRejectMessage="" description="" enabled="true" inputField="" name="Copy and convert values " outputField="">
+            <transform><![CDATA[//#CTL2
+
+// Transforms input record into output record.
+function integer transform() {
+	$out.0.customer_id = str2long($in.0.customer_id);
+	$out.0.purchase_id = str2long($in.0.purchase_id);
+	$out.0.amount = str2decimal($in.0.amount ) * 1.5;
+	$out.0.currency = "AUD";
+	$out.0.batch_id = dictionary.batchId;
+	$out.0.first_name = $in.0.first_name;
+	$out.0.last_name = $in.0.last_name;
+	$out.0.row = $in.0.row;
+	return ALL;
+}
+
+// Called during component initialization.
+// function boolean init() {}
+
+// Called during each graph run before the transform is executed. May be used to allocate and initialize resources
+// required by the transform. All resources allocated within this method should be released
+// by the postExecute() method.
+// function void preExecute() {}
+
+// Called only if transform() throws an exception.
+// function integer transformOnError(string errorMessage, string stackTrace) {}
+
+// Called during each graph run after the entire transform was executed. Should be used to free any resources
+// allocated within the preExecute() method.
+// function void postExecute() {}
+
+// Called to return a user-defined error message when an error occurs.
+// function string getMessage() {}
+]]]]><![CDATA[></transform>
+        </transform>
+    </children>
+    <languageSetting dateFormat="" locale="" numberFormat="" timezone=""/>
+    <imports/>
+</group>
+]]></attr>
+<attr name="errorMapping"><![CDATA[//#CTL2
+
+// Transforms input record into output record.
+function integer transform() {
+	$out.1.customer_id = $in.0.customer_id;
+	$out.1.first_name = $in.0.first_name;
+	$out.1.last_name = $in.0.last_name;
+	$out.1.email = $in.0.email;
+	$out.1.purchase_id = $in.0.purchase_id;
+	$out.1.purchase_date = $in.0.purchase_date;
+	$out.1.amount = $in.0.amount;
+	$out.1.currency = $in.0.currency;
+	$out.1.row = $in.0.row;
+	$out.1.validationMessage = $in.1.validationMessage;
+
+	return ALL;
+}
+
+// Called during component initialization.
+// function boolean init() {}
+
+// Called during each graph run before the transform is executed. May be used to allocate and initialize resources
+// required by the transform. All resources allocated within this method should be released
+// by the postExecute() method.
+// function void preExecute() {}
+
+// Called only if transform() throws an exception.
+// function integer transformOnError(string errorMessage, string stackTrace) {}
+
+// Called during each graph run after the entire transform was executed. Should be used to free any resources
+// allocated within the preExecute() method.
+// function void postExecute() {}
+
+// Called to return a user-defined error message when an error occurs.
+// function string getMessage() {}
+]]></attr>
+</Node>
+<Node cloverFields="batch_id;file_name;file_hash;file_location;processed_at" dbConnection="JDBC0" guiName="Write Batch Metadata to DB" guiX="145" guiY="825" id="WRITE_BATCH_METADATA_TO_DB" type="DB_OUTPUT_TABLE">
+<attr name="sqlQuery"><![CDATA[INSERT INTO "public"."import_batches" ("batch_id", "file_name", "file_hash", "file_location", "processed_at")
+VALUES ($batch_id, $file_name, $file_hash, $file_location, $processed_at);]]></attr>
+</Node>
+<Node atomicSQL="false" batchMode="true" batchSize="1000" commit="10000" dbConnection="JDBC0" errorAction="COMMIT" guiName="Write Customer, Purchase (or RejectedRow on duplicate detection) to DB" guiX="1420" guiY="-150" id="WRITE_CUSTOMER_PURCHASE_OR_REJECTED_ROW_ON_DUPLICATE_DETECTION_TO_DB" maxErrors="-1" type="DB_OUTPUT_TABLE">
+<attr name="sqlQuery"><![CDATA[-- create customers
+INSERT INTO public.customers AS c (customer_id, first_name, last_name, email)
+VALUES ($customer_id, $first_name, $last_name, $email)
+ON CONFLICT (customer_id)
+DO UPDATE
+SET first_name = EXCLUDED.first_name,
+    last_name  = EXCLUDED.last_name,
+    email      = EXCLUDED.email;
+
+-- create purchases, save duplicate purchase IDs to rejected row table
+INSERT INTO public.purchases (purchase_id, customer_id, purchase_date, amount_aud, import_batch_id)
+VALUES ($purchase_id, $customer_id, $purchase_date, $amount, $batch_id)
+ON CONFLICT (purchase_id) DO NOTHING;
+
+-- insert dupes into error table (clover validation is preventing me from using a CTE unfortunately)
+INSERT INTO public.rejected_rows (batch_id, "row_number", raw_data, reason)
+SELECT
+  $batch_id AS batch_id,
+  $row AS row_number,
+  (
+    CAST($customer_id AS bigint)::text || ',' ||
+    COALESCE($first_name, '')          || ',' ||
+    COALESCE($last_name,  '')          || ',' ||
+    COALESCE($email,      '')          || ',' ||
+    CAST($purchase_id AS bigint)::text || ',' ||
+    TO_CHAR(CAST($purchase_date AS date), 'YYYY-MM-DD') || ',' ||
+    (CAST($amount AS numeric))::text    || ',' ||
+    COALESCE($currency, '')
+  ) AS raw_data,
+  CASE
+    WHEN (p.customer_id, p.purchase_date, p.amount_aud)
+         IS DISTINCT FROM ($customer_id, $purchase_date, $amount)
+      THEN 'duplicate_purchase_id_different_values'
+    ELSE 'duplicate_purchase_id_same_values'
+  END AS reason
+FROM public.purchases p
+WHERE p.purchase_id = $purchase_id 
+AND NOT EXISTS (
+	SELECT 1
+	FROM public.purchases px
+	WHERE px.purchase_id = $purchase_id
+    AND px.import_batch_id = $batch_id
+);]]></attr>
+</Node>
+<Node batchMode="true" batchSize="1000" commit="10000" dbConnection="JDBC0" errorAction="COMMIT" guiName="Write Failed Rows to &quot;Rejected_Rows&quot; Table" guiX="1495" guiY="575" id="WRITE_FAILED_ROWS_TO_REJECTED_ROWS_TABLE" type="DB_OUTPUT_TABLE">
+<attr name="sqlQuery"><![CDATA[INSERT INTO "public"."rejected_rows" ("batch_id", "row_number", "raw_data", "reason")
+VALUES ($batch_id, $row, $raw_data, $reason);]]></attr>
+</Node>
+<Edge fromNode="GATHER_INVALID_ROWS_FOR_REJECTED_ROW_DATABASE_WRITE:0" guiBendpoints="" guiRouter="Manhattan" id="Edge27" inPort="Port 0 (in)" outPort="Port 0 (out)" toNode="MAP_INVALID_ROW_TO_DB_REJECTED_ROW:0"/>
+<Edge fromNode="GATHER_VALID_ROWS_FOR_DB_WRITE:0" guiBendpoints="" guiRouter="Manhattan" id="Edge6" inPort="Port 0 (in)" outPort="Port 0 (out)" toNode="WRITE_CUSTOMER_PURCHASE_OR_REJECTED_ROW_ON_DUPLICATE_DETECTION_TO_DB:0"/>
+<Edge fromNode="MAP_BATCH_DUPLICATE_TO_DB_REJECTED_ROW:0" guiBendpoints="" guiRouter="Manhattan" id="Edge21" inPort="Port 2 (in)" outPort="Port 0 (out)" toNode="SIMPLE_GATHER:2"/>
+<Edge fromNode="MAP_CSV_PARSE_ERROR_TO_DB_REJECTED_ROW:0" guiBendpoints="" guiRouter="Manhattan" id="Edge4" inPort="Port 1 (in)" outPort="Port 0 (out)" toNode="SIMPLE_GATHER:1"/>
+<Edge fromNode="MAP_INVALID_ROW_TO_DB_REJECTED_ROW:0" guiBendpoints="" guiRouter="Manhattan" id="Edge13" inPort="Port 0 (in)" outPort="Port 0 (out)" toNode="SIMPLE_GATHER:0"/>
+<Edge fromNode="READ_CSV:0" guiBendpoints="" guiRouter="Manhattan" id="Edge3" inPort="Port 0 (in)" metadata="Metadata12" outPort="Port 0 (output)" toNode="REMOVE_BATCH_DUPLICATES:0"/>
+<Edge fromNode="READ_CSV:1" guiBendpoints="" guiRouter="Manhattan" id="Edge1" inPort="Port 0 (in)" outPort="Port 1 (logs)" toNode="MAP_CSV_PARSE_ERROR_TO_DB_REJECTED_ROW:0"/>
+<Edge fromNode="REMOVE_BATCH_DUPLICATES:0" guiBendpoints="" guiRouter="Manhattan" id="Edge0" inPort="Port 0 (in)" outPort="Port 0 (unique)" toNode="ROUND_ROBIN_PARTITION:0"/>
+<Edge fromNode="REMOVE_BATCH_DUPLICATES:1" guiBendpoints="" guiRouter="Manhattan" id="Edge19" inPort="Port 0 (in)" outPort="Port 1 (duplicate)" toNode="MAP_BATCH_DUPLICATE_TO_DB_REJECTED_ROW:0"/>
+<Edge fromNode="ROUND_ROBIN_PARTITION:0" guiBendpoints="" guiRouter="Manhattan" id="Edge18" inPort="Port 0 (in)" outPort="Port 0 (out)" toNode="VALIDATOR:0"/>
+<Edge fromNode="ROUND_ROBIN_PARTITION:1" guiBendpoints="" guiRouter="Manhattan" id="Edge22" inPort="Port 0 (in)" outPort="Port 1 (out)" toNode="VALIDATOR4:0"/>
+<Edge fromNode="ROUND_ROBIN_PARTITION:2" guiBendpoints="" guiRouter="Manhattan" id="Edge30" inPort="Port 0 (in)" outPort="Port 2 (out)" toNode="VALIDATOR2:0"/>
+<Edge fromNode="ROUND_ROBIN_PARTITION:3" guiBendpoints="" guiRouter="Manhattan" id="Edge35" inPort="Port 0 (in)" outPort="Port 3 (out)" toNode="VALIDATOR1:0"/>
+<Edge fromNode="SIMPLE_COPY1:0" guiBendpoints="" guiRouter="Manhattan" id="Edge20" inPort="Port 0 (in)" outPort="Port 0 (out)" toNode="REGENERATE_AGGREGATE_VIEW:0"/>
+<Edge fromNode="SIMPLE_COPY1:1" guiBendpoints="" guiRouter="Manhattan" id="Edge16" inPort="Port 0 (in)" outPort="Port 1 (out)" toNode="COPY_PROCESSED_CSV:0"/>
+<Edge fromNode="SIMPLE_COPY1:2" guiBendpoints="" guiRouter="Manhattan" id="Edge15" inPort="Port 0 (in)" outPort="Port 2 (out)" toNode="WRITE_BATCH_METADATA_TO_DB:0"/>
+<Edge fromNode="SIMPLE_GATHER:0" guiBendpoints="" guiRouter="Manhattan" id="Edge12" inPort="Port 0 (in)" metadata="Metadata7" outPort="Port 0 (out)" toNode="WRITE_FAILED_ROWS_TO_REJECTED_ROWS_TABLE:0"/>
+<Edge fromNode="VALIDATOR:0" guiBendpoints="" guiRouter="Manhattan" id="Edge36" inPort="Port 0 (in)" metadata="Metadata6" outPort="Port 0 (valid)" toNode="GATHER_VALID_ROWS_FOR_DB_WRITE:0"/>
+<Edge fromNode="VALIDATOR:1" guiBendpoints="" guiRouter="Manhattan" id="Edge11" inPort="Port 1 (in)" metadata="Metadata8" outPort="Port 1 (invalid)" toNode="GATHER_INVALID_ROWS_FOR_REJECTED_ROW_DATABASE_WRITE:1"/>
+<Edge fromNode="VALIDATOR1:0" guiBendpoints="" guiRouter="Manhattan" id="Edge40" inPort="Port 3 (in)" metadata="Metadata6" outPort="Port 0 (valid)" toNode="GATHER_VALID_ROWS_FOR_DB_WRITE:3"/>
+<Edge fromNode="VALIDATOR1:1" guiBendpoints="" guiRouter="Manhattan" id="Edge33" inPort="Port 3 (in)" outPort="Port 1 (invalid)" toNode="GATHER_INVALID_ROWS_FOR_REJECTED_ROW_DATABASE_WRITE:3"/>
+<Edge fromNode="VALIDATOR2:0" guiBendpoints="" guiRouter="Manhattan" id="Edge38" inPort="Port 2 (in)" metadata="Metadata6" outPort="Port 0 (valid)" toNode="GATHER_VALID_ROWS_FOR_DB_WRITE:2"/>
+<Edge fromNode="VALIDATOR2:1" guiBendpoints="" guiRouter="Manhattan" id="Edge29" inPort="Port 2 (in)" outPort="Port 1 (invalid)" toNode="GATHER_INVALID_ROWS_FOR_REJECTED_ROW_DATABASE_WRITE:2"/>
+<Edge fromNode="VALIDATOR4:0" guiBendpoints="" guiRouter="Manhattan" id="Edge37" inPort="Port 1 (in)" metadata="Metadata6" outPort="Port 0 (valid)" toNode="GATHER_VALID_ROWS_FOR_DB_WRITE:1"/>
+<Edge fromNode="VALIDATOR4:1" guiBendpoints="" guiRouter="Manhattan" id="Edge26" inPort="Port 0 (in)" outPort="Port 1 (invalid)" toNode="GATHER_INVALID_ROWS_FOR_REJECTED_ROW_DATABASE_WRITE:0"/>
+</Phase>
+<Phase number="2">
+<Node guiName="Copy Processed CSV" guiX="345" guiY="825" id="COPY_PROCESSED_CSV" type="COPY_FILES">
+<attr name="inputMapping"><![CDATA[//#CTL2
+
+// Transforms input record into output record.
+function integer transform() {
+	$out.0.sourceURL = getParamValue("EVENT_FILE_URLS");
+	$out.0.targetURL = '/data/processed/' + $in.0.batch_id + '.csv';
+
+	return ALL;
+}
+
+// Called during component initialization.
+// function boolean init() {}
+
+// Called during each graph run before the transform is executed. May be used to allocate and initialize resources
+// required by the transform. All resources allocated within this method should be released
+// by the postExecute() method.
+// function void preExecute() {}
+
+// Called only if transform() throws an exception.
+// function integer transformOnError(string errorMessage, string stackTrace) {}
+
+// Called during each graph run after the entire transform was executed. Should be used to free any resources
+// allocated within the preExecute() method.
+// function void postExecute() {}
+
+// Called to return a user-defined error message when an error occurs.
+// function string getMessage() {}
+]]></attr>
+</Node>
+<Node guiName="EXPORT AGGREGATE CSV" guiX="770" guiY="825" id="EXPORT_AGGREGATE_CSV" jobURL="${SUBGRAPH_DIR}/ExportAggregateFile.sgrf" type="SUBGRAPH">
+<attr name="inputMapping"><![CDATA[//#CTL2
+
+// Transforms input record into output record.
+function integer transform() {
+	$out.0.BATCH_ID = "'" + dictionary.batchId + "'";
+	$out.0.AGGREGATE_FILE_LOCATION = dictionary.aggregateFileLocation;
+
+	return ALL;
+}
+
+// Called during component initialization.
+// function boolean init() {}
+
+// Called during each graph run before the transform is executed. May be used to allocate and initialize resources
+// required by the transform. All resources allocated within this method should be released
+// by the postExecute() method.
+// function void preExecute() {}
+
+// Called only if transform() throws an exception.
+// function integer transformOnError(string errorMessage, string stackTrace) {}
+
+// Called during each graph run after the entire transform was executed. Should be used to free any resources
+// allocated within the preExecute() method.
+// function void postExecute() {}
+
+// Called to return a user-defined error message when an error occurs.
+// function string getMessage() {}
+]]></attr>
+<attr name="guiDescription"><![CDATA[Write CSV of aggregates of this batch]]></attr>
+</Node>
+<Node dbConnection="JDBC0" guiName="Regenerate Aggregate View" guiX="520" guiY="825" id="REGENERATE_AGGREGATE_VIEW" type="DB_OUTPUT_TABLE">
+<attr name="sqlQuery"><![CDATA[REFRESH MATERIALIZED VIEW CONCURRENTLY customer_spend_summary;]]></attr>
+</Node>
+</Phase>
+</Graph>

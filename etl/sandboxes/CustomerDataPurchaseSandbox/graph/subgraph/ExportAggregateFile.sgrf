@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Graph author="Jimmy" created="Sun Aug 10 16:07:05 AEST 2025" guiVersion="7.1.0.8" id="1754817679179" licenseCode="CLP1DJAMES67662781EX" name="ExportAggregateFile" nature="subgraph" showComponentDetails="true">
+<Global>
+<Metadata id="Metadata13">
+<Record fieldDelimiter="," name="BatchAggregate" previewAttachmentCharset="UTF-8" recordDelimiter="\r\n" type="delimited">
+<Field name="customer_id" type="string"/>
+<Field name="full_name" type="string"/>
+<Field name="email" type="string"/>
+<Field name="total_spent_aud" type="string"/>
+<Field name="first_purchase_date" type="string"/>
+<Field name="last_purchase_date" type="string"/>
+</Record>
+</Metadata>
+<Connection database="POSTGRE" dbURL="jdbc:postgresql://postgres:5432/warehouse" id="JDBC0" jdbcSpecific="POSTGRE" name="Warehouse" password="password" type="JDBC" user="admin"/>
+<GraphParameters>
+<GraphParameter name="BATCH_ID" value="placeholder"/>
+<GraphParameter name="AGGREGATE_FILE_LOCATION" value="placeholder"/>
+<GraphParameterFile fileURL="workspace.prm"/>
+</GraphParameters>
+<Dictionary/>
+</Global>
+<Phase number="0">
+<Node dbConnection="JDBC0" guiName="DatabaseReader" guiX="320" guiY="175" id="DATABASE_READER" printStatements="true" type="DB_INPUT_TABLE">
+<attr name="sqlQuery"><![CDATA[SELECT
+  $customer_id:=c.customer_id                                  AS customer_id,
+  $full_name:=(c.first_name || ' ' || c.last_name)             AS full_name,
+  $email:=c.email                                              AS email,
+  $total_spent_aud:=SUM(p.amount_aud)                          AS total_spent_aud,
+  $first_purchase_date:=MIN(p.purchase_date)                   AS first_purchase_date,
+  $last_purchase_date:=MAX(p.purchase_date)                    AS last_purchase_date
+FROM customers c
+JOIN purchases p USING (customer_id)
+WHERE p.import_batch_id = ${BATCH_ID}
+GROUP BY c.customer_id, c.first_name, c.last_name, c.email;
+]]></attr>
+</Node>
+<Node fileURL="${AGGREGATE_FILE_LOCATION}" guiName="FlatFileWriter" guiX="520" guiY="175" id="FLAT_FILE_WRITER" makeDirs="true" outputFieldNames="true" type="FLAT_FILE_WRITER"/>
+<Node guiName="SubgraphInput" guiX="220" guiY="5" id="SUBGRAPH_INPUT0" type="SUBGRAPH_INPUT">
+<Port guiY="117" name="0"/>
+</Node>
+<Node guiName="SubgraphOutput" guiX="795" guiY="5" id="SUBGRAPH_OUTPUT0" type="SUBGRAPH_OUTPUT">
+<Port guiY="117" name="0"/>
+</Node>
+<Edge fromNode="DATABASE_READER:0" guiBendpoints="" guiRouter="Manhattan" id="Edge41" inPort="Port 0 (in)" metadata="Metadata13" outPort="Port 0 (out)" toNode="FLAT_FILE_WRITER:0"/>
+</Phase>
+</Graph>
