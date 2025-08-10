@@ -502,7 +502,7 @@ function integer transform() {
 // function string getMessage() {}
 ]]></attr>
 </Node>
-<Node dataPolicy="controlled" fileURL="${EVENT_FILE_URLS}" guiName="Read CSV" guiX="470" guiY="75" id="READ_CSV" parser="org.jetel.data.parser.DataParser" type="FLAT_FILE_READER"/>
+<Node dataPolicy="controlled" fileURL="${EVENT_FILE_URLS}" guiName="Read CSV" guiX="470" guiY="75" id="READ_CSV" parser="org.jetel.data.parser.DataParser" skipRows="1" type="FLAT_FILE_READER"/>
 <Node dedupKey="purchase_id(a)" guiName="Remove Batch Duplicates" guiX="495" guiY="-200" id="REMOVE_BATCH_DUPLICATES" keep="first" sorted="false" type="DEDUP"/>
 <Node guiName="Round Robin Partition" guiX="720" guiY="-200" id="ROUND_ROBIN_PARTITION" type="PARTITION">
 <attr name="partitionSource"><![CDATA[//#CTL2
