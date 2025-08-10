@@ -34,6 +34,7 @@
 - Performance optimisation (parallel reader for example)
 - Look into worker nodes and productionising this setup
 - Fix the issues I had with S3/Azure-Blob-Storage and LF ended CSVs
+- Testing scripts
 
 ## Design
 
@@ -63,6 +64,15 @@ After the compose is up
 [web client](http://ocalhost:8080)
 
 To start processing a CSV file drag it into the `./etl/files/raw` folder (ensure it is CRLF ended as mentioned above). The file must end in `.csv`. The pipeline run can be seen in the cloverDX server dashboard. After the data is ETL'ed, `./etl/files/processed/${UUID}.csv` will contain a clone of the raw input csv and `./etl/files/aggregate/${UUID}.csv` will contain the aggregated CSV.
+
+
+A python script was written to generate CSVs.
+```bash
+pip3 install -r requirements.txt
+
+python3 generate-random-csv.py
+
+```
 
 The UI will present the 'top 5' customers across all aggregate when loaded.
 
