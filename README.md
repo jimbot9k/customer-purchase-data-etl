@@ -23,11 +23,13 @@
 8. import CSV is expected to have headers
 
 ## Challenges that caused changes
-- I attempted to use Minio as a mock for S3, unfortunately I could not get CloverDX talking to it as it's S3 client appears to only work with actual S3. I attempted to setup Azure as a mock for Azure Blob Storage also and had similar problems. I gave up on using these and I did not want to use the actual services for simplicity and cost. I mapped a file directory into CloverDX that is used instead of a cloud file service.
+- I attempted to use Minio as a mock for S3, unfortunately I could not get CloverDX talking to it as it's S3 client appears to only work with actual S3. I attempted to setup Azure as a mock for Azure Blob Storage also and had similar problems. I timeboxed these as they weren't essential to demonstrate this ETL process, actual S3 and Azure Blob Storage would be used in production, and only minor tweaks to the event listener and the output locations would need to be made.
 
-- Issues were had with processing LF ended CSVs in CloverDX. As such, the ETL pipeline only handles CR LF ended CSVS.
+- Issues were had with processing LF ended CSVs in CloverDX. As such, the ETL pipeline only handles CR LF ended CSVS. This was timeboxed as well. This would be the first thing I fix if I continued working on this.
 
 ## What I would continue working on
+- Fix Only CRLF Issue
+  - A script could parse the CSV - or the reader could be further investigated
 - More developed UI (material-tailwind components aren't working properly atm and data could be more presentable)
 - Batch viewer in UI
 - Currency conversion data source
@@ -53,27 +55,27 @@
 An ETL pipeline will be created using CloverDX. As this is a prototype, docker-compose will be used to deploy CloverDX via its server image. A Spring Boot RESTful service will be written to present the "top 5" as required. A simple React app will be written to display the "top 5" in a table.
 
 ### Components
-- CloverDX Server in Docker
+- CloverDX (v7) Server in Docker
   - `./etl/sandboxes/CustomerDataPurchaseSandbox/` for sandbox with job and graph used.
   - `./etl/clover-server-config.xml` for setting up the event listener
   - `./etl/license` for a valid CloverDX license
-- Spring Boot RESTful Server
+- Spring Boot RESTful Server (Java 21, Spring Boot 3.5.4)
   - `./presentation/purchase-data-rest/`
-- React SPA 
+- React SPA (React 18, Node 21)
   - `./presentation/web-client/`
-- Postgres for Cloverdx
-- Postgres for data warehouse
+- Postgres (17) for Cloverdx
+- Postgres (17) for data warehouse
 - NGINX reverse proxy
 
 The above components are deployable with docker-compose
 ```bash
-docker-compose up
+docker-compose up -d
 ```
 
 After the compose is up
 [cloverDX](http://localhost:8080/clover)
 [customer purchase rest](http://localhost:8080/api/purchases/top-five-customers)
-[web client](http://ocalhost:8080)
+[web client](http://localhost:8080)
 
 To start processing a CSV file drag it into the `./etl/files/raw` folder (ensure it is CRLF ended as mentioned above). The file must end in `.csv`. The pipeline run can be seen in the cloverDX server dashboard. After the data is ETL'ed, `./etl/files/processed/${UUID}.csv` will contain a clone of the raw input csv and `./etl/files/aggregate/${UUID}.csv` will contain the aggregated CSV.
 
@@ -259,6 +261,11 @@ SET first_name = EXCLUDED.first_name,
     last_name  = EXCLUDED.last_name,
     email      = EXCLUDED.email;
 ```
+
+Database queries are batched for performance gains.
+
+![batched db insert](./images/batched-db.png)
+
 
 #### Post DB Load actions
 The materialised view of customer purchases is regenerated after the DB load occurs. 
