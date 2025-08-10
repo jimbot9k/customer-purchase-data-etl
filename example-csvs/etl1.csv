@@ -1,0 +1,7 @@
+customer_id,first_name,last_name,email,purchase_id,purchase_date,amount,currency
+101,John,Doe,john@example.com,91,2023-10-01,200,USD
+102,Jane,Smith,jane@example.com,92,2023-10-02,150,USD
+101,John,Doe,john@example.com,93,2023-10-03,300,USD
+101,John,Doe,john@example.com,94,2023-10-01,200,USD
+102,Jane,Smith,jane@example.com,95,2023-10-02,150,USD
+101,John,Doe,john@example.com,96,2023-10-03,300,USD

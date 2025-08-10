@@ -27,7 +27,7 @@
 
 - Issues were had with processing LF ended CSVs in CloverDX. As such, the ETL pipeline only handles CR LF ended CSVS.
 
-## What I could continue working on
+## What I would continue working on
 - More developed UI (material-tailwind components aren't working properly atm and data could be more presentable)
 - Batch viewer in UI
 - Currency conversion data source
@@ -35,6 +35,18 @@
 - Look into worker nodes and productionising this setup
 - Fix the issues I had with S3/Azure-Blob-Storage and LF ended CSVs
 - Testing scripts
+- Observability and alerts on ETL runs (especially failures)
+
+
+## Alternative Designs
+- Use other ETL tools (ADF, nifi, orchestrators like airflow or dagster)
+  - I have a preference for open source
+- Custom Java ingestor
+  - Would most likely be a slow development time whenever changes are needed compared to CloverDX
+  - More easily understood and controllable 
+- One-off python scripts
+  - not scalable
+    - well, not without airflow or something
 
 ## Design
 
